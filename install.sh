@@ -1,6 +1,6 @@
 #!/bin/bash
 #------------------------------------------------------------------------------------------------------------
-USERNAME="sysinfo"
+USERNAME="mailru"
 SCRIPTS_DIR="/home/${USERNAME}/scripts"
 INI_CONFIG="${SCRIPTS_DIR}/scripts.ini"
 UPD_TIME=30
@@ -8,7 +8,6 @@ UPD_TIME=30
 RED='\033[0;31m'
 BLU='\033[0;34m'
 NCC='\033[0m'
-GRE='\033[0;32m'
 #------------------------------------------------------------------------------------------------------------
 # Find location of scrit
 BASEDIR=`dirname $0`
@@ -21,8 +20,8 @@ if [ "$(id -u)" != "0" ]; then
 fi
 #------------------------------------------------------------------------------------------------------------
 # Add newuser for syinfo system
-echo -e "${GRE}Using path: ${PROJECT_PATH} ${NCC}"
-echo -e "${GRE}Creating user sysinfo ...${NCC}"
+echo -e "${BLU}Using path: ${PROJECT_PATH} ${NCC}"
+echo -e "${BLU}Creating user sysinfo ...${NCC}"
 useradd -m -c "User for web-sysinfo" $USERNAME
 passwd -d $USERNAME
 #------------------------------------------------------------------------------------------------------------
@@ -39,7 +38,7 @@ if [ $? != "0" ]; then
 fi
 #------------------------------------------------------------------------------------------------------------
 # Prepare directories for scripts and web-pages
-echo -e "${GRE}Starting to copy scripts to ${SCRIPTS_DIR} ...${NCC}"
+echo -e "${BLU}Starting to copy scripts to ${SCRIPTS_DIR} ...${NCC}"
 mkdir -p $SCRIPTS_DIR/data
 mkdir -p /var/www/html/sysinfo
 touch $INI_CONFIG
@@ -55,8 +54,6 @@ sudo cp -f $PROJECT_PATH/netinf.sh $SCRIPTS_DIR/netinf.sh
 printf "netinf=\"cat ${SCRIPTS_DIR}/data/print_netinf\"\n" >> $INI_CONFIG
 # [4] TOPTLK
 touch print_toptlk.txt
-#cp -f $PROJECT_PATH/toptlk.sh $SCRIPTS_DIR/toptlk.sh
-
 sudo cp -f $PROJECT_PATH/dpkt_test.py $SCRIPTS_DIR/dpkt_test.py
 sudo cp -f $PROJECT_PATH/print_toptlk.txt $SCRIPTS_DIR/print_toptlk.txt
 sudo cp -f $SCRIPTS_DIR/print_toptlk.txt $SCRIPTS_DIR/data/print_toptlk.txt
@@ -75,22 +72,22 @@ chown -R sysinfo:sysinfo $SCRIPTS_DIR/
 chmod +x $SCRIPTS_DIR/*
 #------------------------------------------------------------------------------------------------------------
 # Crontab
-echo -e "${GRE}Adding crontab for ${USERNAME} ...${NCC}"
+echo -e "${BLU}Adding crontab for ${USERNAME} ...${NCC}"
 crontab -l -u $USERNAME | cat - $PROJECT_PATH/automatic.cron | crontab -u $USERNAME -
 #------------------------------------------------------------------------------------------------------------
 # Setup scripts with special files
-echo -e "${GRE}Prepare scripts ...${NCC}"
+echo -e "${BLU}Prepare scripts ...${NCC}"
 sudo $SCRIPTS_DIR/netinf.sh $SCRIPTS_DIR/data/curr_netinf
 #------------------------------------------------------------------------------------------------------------
-echo -e "${GRE}Installing tools, apache2+php and nginx ...${NCC}"
+echo -e "${BLU}Installing tools, apache2+php and nginx ...${NCC}"
 apt install -y sysstat elinks apache2 libapache2-mod-php
 systemctl stop apache2
 apt install -y nginx
-sudo apt install python2.7
-sudo apt install python-pip
+sudo apt install -y python2.7
+sudo apt install -y python-pip
 sudo pip install dpkt
 #------------------------------------------------------------------------------------------------------------
-echo -e "${GRE}Starting to copy configuration files${NCC}"
+echo -e "${BLU}Starting to copy configuration files${NCC}"
 cp -f $PROJECT_PATH/nginx-default.conf /etc/nginx/sites-enabled/default
 cp -f $PROJECT_PATH/apache-ports.conf /etc/apache2/ports.conf
 cp -f $PROJECT_PATH/apache-default.conf /etc/apache2/sites-enabled/000-default.$
@@ -101,12 +98,12 @@ cp -f $PROJECT_PATH/sysinfo.php /var/www/html/sysinfo/index.php
 #------------------------------------------------------------------------------------------------------------
 sed -i "1 i <?php \$iniFile=\"${INI_CONFIG}\"; \$updateTime=${UPD_TIME}; ?>" /var/www/html/sysinfo/index.php
 #------------------------------------------------------------------------------------------------------------
-echo -e "${GRE}Restarting servers ... ${NCC}"
+echo -e "${BLU}Restarting servers ... ${NCC}"
 systemctl start apache2
 systemctl restart nginx
 #------------------------------------------------------------------------------------------------------------
 # Restart scripts to collect inforamation from setup
-echo -e "${GRE}Restarting scripts ... ${NCC}"
+echo -e "${BLU}Restarting scripts ... ${NCC}"
 sudo $SCRIPTS_DIR/iostat.sh $SCRIPTS_DIR/data/print_iostat 
 #sudo $SCRIPTS_DIR/data/print_cpuinf
 sudo $SCRIPTS_DIR/netinf.sh
@@ -117,6 +114,6 @@ sudo python $SCRIPTS_DIR/dpkt_test.py
 sudo cp -f $SCRIPTS_DIR/print_toptlk.txt $SCRIPTS_DIR/data/print_toptlk.txt #$SCRIPTS_DIR/data/print_toptlk &
 #------------------------------------------------------------------------------------------------------------
 netstat -nlpt
-echo -e "${GRE}END OF SCRIPT${NCC}\n"
+echo -e "${BLU}END OF SCRIPT${NCC}\n"
 #------------------------------------------------------------------------------------------------------------
 exit 0
