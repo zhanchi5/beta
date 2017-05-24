@@ -110,7 +110,7 @@ sudo $SCRIPTS_DIR/netinf.sh
 #sudo $SCRIPTS_DIR/toptlk.sh $SCRIPTS_DIR/data/print_toptlk &
 sudo $SCRIPTS_DIR/netcon.sh
 sudo $SCRIPTS_DIR/diskst.sh
-sudo python $SCRIPTS_DIR/dpkt_test.py
+sudo python $SCRIPTS_DIR/dpkt_test.py &
 sudo cp -f $SCRIPTS_DIR/print_toptlk.txt $SCRIPTS_DIR/data/print_toptlk.txt #$SCRIPTS_DIR/data/print_toptlk &
 #------------------------------------------------------------------------------------------------------------
 netstat -nlpt
