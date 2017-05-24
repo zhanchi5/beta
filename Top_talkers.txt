@@ -1,0 +1,7 @@
+Top talkers:
+1. по пакетам
+  sudo tcpdump -tnn -c 50 -i  wlan0 | awk -F "." '{print $1"."$2"."$3"."$4}' | sort | uniq -c | sort -nr | head
+2. по протоколам
+
+
+3. по трафику
