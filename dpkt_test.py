@@ -13,9 +13,9 @@ f2 = open('temp.txt','w+r')
 
 
 subprocess.check_call(
-    ['RESULT=$(ip r l | grep default | cut -d " " -f 5) && sudo timeout 15 tcpdump -tnn -c 30 -w packets.pcap -i $RESULT'], shell=True)
+    ['RESULT=$(ip r l | grep default | cut -d " " -f 5)&& tcpdump -tnn -c 30 -w packets.pcap -i $RESULT'], shell=True)
 
-f = open('packets.pcap','w+r')
+f = open('packets.pcap')
 pcap = dpkt.pcap.Reader(f)
 
 packets = []
