@@ -5,7 +5,7 @@
 	</head>
 	<body style="background-color: white; color: black; font-family: monospace;">
 
-		<center><h1>Actual system information by <?php echo date('H:i:s d.m.Y')?></h1></center>
+		<h1>Actual system information by <?php echo date('H:i:s d.m.Y')?></h1>
 
 		<?php
 			$hdr = getallheaders();
