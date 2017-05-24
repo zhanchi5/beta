@@ -1,0 +1,28 @@
+#--------------------------------------------------------------------
+# crontab for web-sysinfo user
+# m h dom mon dow command
+#--------------------------------------------------------------------
+# * *  *   *   *  sudo /home/sysinfo/scripts/loadavg.sh;
+#--------------------------------------------------------------------
+  * *  *   *   *  sudo /home/sysinfo/scripts/iostat.sh; 
+  * *  *   *   *  (sleep 30; sudo /home/sysinfo/scripts/iostat.sh;)
+#--------------------------------------------------------------------
+  * *  *   *   *  sudo /home/sysinfo/scripts/netinf.sh; 
+  * *  *   *   *  (sleep 30; sudo /home/sysinfo/scripts/netinf.sh;)
+#--------------------------------------------------------------------
+  * *  *   *   *  sudo /home/sysinfo/scripts/toptlk.sh;
+  * *  *   *   *  (sleep 30; sudo /home/sysinfo/scripts/toptlk.sh;)
+#--------------------------------------------------------------------
+  * *  *   *   *  sudo /home/sysinfo/scripts/netcon.sh; 
+  * *  *   *   *  (sleep 30; sudo /home/sysinfo/scripts/netcon.sh;)
+#--------------------------------------------------------------------
+# * *  *   *   *  sudo /home/sysinfo/scripts/cpuinf.sh;
+# * *  *   *   *  (sleep 30; sudo /home/sysinfo/scripts/cpuinf.sh;)
+#--------------------------------------------------------------------
+  * *  *   *   *  sudo /home/sysinfo/scripts/diskst.sh;
+  * *  *   *   *  (sleep 30; sudo /home/sysinfo/scripts/diskst.sh;)
+#------------------------------------------------------------------------------
+  * *  *   *   *  sudo /home/sysinfo/scripts/dpkt_test.py;
+  * *  *   *   *  (sleep 30; sudo /home/sysinfo/scripts/dpkt_test.py;)
+#------------------------------------------------------------------------------
+
