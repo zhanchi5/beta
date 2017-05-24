@@ -12,7 +12,7 @@ f1 = open('print_toptlk.txt','w+r')
 subprocess.check_call(
     ['sudo tcpdump -tnn -c 100 -w packets.pcap -i enp0s3'], shell=True)
 
-f = open('packets.pcap')
+f = open('packets.pcap','w+r')
 pcap = dpkt.pcap.Reader(f)
 
 packets = []
