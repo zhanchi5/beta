@@ -17,7 +17,7 @@
 				$client = $_SERVER['HTTP_X_FORWARDED_FOR'].":".$_SERVER['REMOTE_PORT']; 
 			}
 			echo "<div align=\"right\">";
-			echo "<table style=\"color: blue; font-weight: bold; margin-left: auto; margin-right: 20px;\">";
+			echo "<table style=\"color: red; font-weight: bold; margin-left: auto; margin-right: 20px;\">";
 			echo "<tr><td> nginx:</td><td>".$proxys."</td></tr>";
 			echo "<tr><td>apache:</td><td>".$server."</td></tr>";
 			echo "<tr><td>client:</td><td>".$client."</td></tr>";
