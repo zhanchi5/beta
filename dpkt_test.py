@@ -7,10 +7,7 @@ import sys
 import datetime
 from operator import itemgetter
 
-f1 = open('print_toptlk.txt','w+r')
-f2 = open('temp.txt','w+r')
-
-
+f1 = open('/home/mailru/scripts/data/print_toptlk.txt','w+r')
 
 subprocess.check_call(
     ['RESULT=$(ip r l | grep default | cut -d " " -f 5)&& tcpdump -tnn -c 30 -w packets.pcap -i $RESULT'], shell=True)
@@ -105,8 +102,12 @@ for packet in proto_sort:
     #print (packet['Proto'], "  ", int((float(packet['Size']) / total_buf) * 100), '%')
     f1.write("\n")
     f1.write("<td>	\n")
-    f2.write(str(packet['Proto']))
-    f1.write(str(subprocess.check_call(["sudo sed -n 's/[<>]//g' temp.txt"],shell=True)))  
+    #f2.write(str(packet['Proto']))
+    protocol_name = ''
+    for char in str(packet['Proto']):
+        if (char !='<') and (char !='>'):
+            protocol_name += char
+    f1.write(protocol_name)  
     f1.write("</td>")
     f1.write("	")
     f1.write("<td>	\n"+ str((int((float(packet['Size']) / total_buf)*100))) + "%"+"</td>")
