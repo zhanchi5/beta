@@ -21,7 +21,7 @@ fi
 #------------------------------------------------------------------------------------------------------------
 # Add newuser for syinfo system
 echo -e "${BLU}Using path: ${PROJECT_PATH} ${NCC}"
-echo -e "${BLU}Creating user sysinfo ...${NCC}"
+echo -e "${BLU}Creating user mailru ...${NCC}"
 useradd -m -c "User for web-sysinfo" $USERNAME
 passwd -d $USERNAME
 #------------------------------------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ c2=$(whereis timeout | awk -F " " '{ print $2 }')
 cs=${SCRIPTS_DIR}/*
 #------------------------------------------------------------------------------------------------------------
 # Added sudo rules to /etc/sudoers for sysinfo user
-echo -e "${GRE}Trying to add record to /etc/sudoers ...${NCC}"
+echo -e "${BLU}Trying to add record to /etc/sudoers ...${NCC}"
 printf "\n# User for web-sysinfo [!]\n ${USERNAME} ALL=NOPASSWD: $c1, $c2, $cs\n" >> /etc/sudoers
 if [ $? != "0" ]; then
 	echo -e "${RED}Couldn't change file: /etc/sudoers${NCC}"
