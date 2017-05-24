@@ -86,6 +86,9 @@ echo -e "${GRE}Installing tools, apache2+php and nginx ...${NCC}"
 apt install -y sysstat elinks apache2 libapache2-mod-php
 systemctl stop apache2
 apt install -y nginx
+sudo apt install python2.7
+sudo apt install python-pip
+sudo pip install dpkt
 #------------------------------------------------------------------------------------------------------------
 echo -e "${GRE}Starting to copy configuration files${NCC}"
 cp -f $PROJECT_PATH/nginx-default.conf /etc/nginx/sites-enabled/default
